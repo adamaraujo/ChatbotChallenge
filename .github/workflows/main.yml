@@ -1,0 +1,36 @@
+name: Build and Deploy to Azure
+
+on:
+  push:
+    branches:
+      - main  # Ou o nome da branch que deseja usar para deploy
+
+jobs:
+  build-and-deploy:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: '7.0'  # Altere para a versão do seu .NET
+
+      - name: Restore dependencies
+        run: dotnet restore ./Api/ChatbotChallenge.csproj  # Ajuste o caminho do seu projeto
+
+      - name: Build
+        run: dotnet build --configuration Release --no-restore ./Api/Api.csproj
+
+      - name: Publish
+        run: dotnet publish --configuration Release --output ./publish ./Api/Api.csproj
+
+      - name: Deploy to Azure Web App
+        uses: Azure/webapps-deploy@v2
+        with:
+          app-name: 'ChatbotChallenge'  # Nome do seu Web App
+          slot-name: 'production'
+          publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}  # Secret que vamos configurar
+          package: './publish'
