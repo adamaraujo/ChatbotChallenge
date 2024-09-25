@@ -19,13 +19,13 @@ jobs:
           dotnet-version: '7.0'  # Altere para a versão do seu .NET
 
       - name: Restore dependencies
-        run: dotnet restore ./Api/ChatbotChallenge.csproj  # Ajuste o caminho do seu projeto
+        run: dotnet restore ./Api/ChatbotChallenge.Api/ChatbotChallenge.Api.csproj  # Ajuste o caminho do seu projeto
 
       - name: Build
-        run: dotnet build --configuration Release --no-restore ./Api/Api.csproj
+        run: dotnet build --configuration Release --no-restore ./Api/ChatbotChallenge.Api/ChatbotChallenge.Api.csproj
 
       - name: Publish
-        run: dotnet publish --configuration Release --output ./publish ./Api/Api.csproj
+        run: dotnet publish --configuration Release --output ./publish ./Api/ChatbotChallenge.Api/ChatbotChallenge.Api.csproj
 
       - name: Deploy to Azure Web App
         uses: Azure/webapps-deploy@v2
