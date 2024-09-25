@@ -1,28 +1,28 @@
-name: Build and Deploy to Azure
+name: CI/CD for .NET API
 
 on:
   push:
     branches:
-      - main  # Ou o nome da branch que deseja usar para deploy
+      - main
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: windows-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+    - name: Check out code
+      uses: actions/checkout@v2
 
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v2
-        with:
-          dotnet-version: '8.0'  # Altere para a versão do seu .NET
+    - name: Set up .NET
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: '8.0'
 
-      - name: Restore dependencies
-        run: dotnet restore ./Api/ChatbotChallenge.sln
+    - name: Restore dependencies
+      run: dotnet restore ./Api/ChatbotChallenge.sln
 
-      - name: Build
-        run: dotnet build --configuration Release --no-restore ./Api/ChatbotChallenge.sln
+    - name: Build
+      run: dotnet build ./Api/ChatbotChallenge.sln --configuration Release --no-restore
 
-      - name: Publish
-        run: dotnet publish --configuration Release --output ./Api/ChatbotChallenge.sln
+    - name: Publish
+      run: dotnet publish ./Api/ChatbotChallenge.sln --configuration Release --output ./Api/bin/Release/net7.0/publish
