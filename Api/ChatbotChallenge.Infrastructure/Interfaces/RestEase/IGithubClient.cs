@@ -1,7 +1,7 @@
-﻿using ChatbotChallenge.Contracts;
+﻿using ChatbotChallenge.Contracts.Models;
 using RestEase;
 
-namespace ChatbotChallenge.Infrastructure.Api.RestEase;
+namespace ChatbotChallenge.Infrastructure.Interfaces.RestEase;
 
 public interface IGithubClient
 {
@@ -18,5 +18,5 @@ public interface IGithubClient
     string UserAgent { get; set; }
 
     [Get("orgs/{organization}/repos?sort=created&direction=asc")]
-    Task<IEnumerable<GithubRepo>> GetRepositories([Path] string organization);
+    Task<IEnumerable<GithubRepositoryResponse>> GetRepositoriesAsync([Path] string organization);
 }

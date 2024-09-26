@@ -1,6 +1,8 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using ChatbotChallenge.Application.Interfaces;
+using ChatbotChallenge.Application.Services;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace ChatbotChallenge.Application;
+namespace ChatbotChallenge.Application.Extensions;
 
 public static class ApplicationServiceCollectionExtensions
 {

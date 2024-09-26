@@ -1,4 +1,4 @@
-﻿namespace ChatbotChallenge.Contracts;
+﻿namespace ChatbotChallenge.Contracts.Models;
 
 public class License
 {
@@ -40,7 +40,7 @@ public class Permissions
     public bool pull { get; set; }
 }
 
-public class GithubRepo
+public class GithubRepositoryResponse
 {
     public int id { get; set; }
     public string node_id { get; set; }

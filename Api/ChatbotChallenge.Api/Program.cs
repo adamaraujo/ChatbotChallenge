@@ -1,5 +1,6 @@
-using ChatbotChallenge.Application;
-using ChatbotChallenge.Infrastructure;
+using ChatbotChallenge.Api.Middlewares;
+using ChatbotChallenge.Application.Extensions;
+using ChatbotChallenge.Infrastructure.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
@@ -21,7 +22,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddGithubApi(config);
+builder.Services.AddInfrastructure(config);
 builder.Services.AddApplication();
 
 var app = builder.Build();
@@ -43,6 +44,8 @@ if (!app.Environment.IsDevelopment())
     });
 }
 
+
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseHttpsRedirection();
 
